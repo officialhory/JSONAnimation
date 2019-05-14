@@ -24,7 +24,7 @@ export class CanvasComponent implements OnInit {
   private tltwo: TimelineMax;
   private raycaster: THREE.Raycaster;
   private mouse: THREE.Vector2;
-  private selected : THREE.Mesh;
+  private selected: THREE.Mesh;
 
   @ViewChild("mycanvas") mycanvas: ElementRef;
   ngOnInit() {
@@ -34,7 +34,7 @@ export class CanvasComponent implements OnInit {
     this.addGrid();
     this.light();
     this.move();
-    this.camera.lookAt(new THREE.Vector3(0,0,0));
+    this.camera.lookAt(new THREE.Vector3(0, 0, 0));
     this.renderer.render(this.scene, this.camera);
     this.animate();
 
@@ -45,7 +45,7 @@ export class CanvasComponent implements OnInit {
     this.controls.update();
     this.camera.updateProjectionMatrix();
     this.meshTwo.rotation.x += 0.01;
-    this.meshTwo.rotation.y += 0.02;
+    this.meshTwo.rotation.y += 0.01;
     this.meshTwo.rotation.z += 0.01;
 
     this.renderer.render(this.scene, this.camera);
@@ -54,10 +54,10 @@ export class CanvasComponent implements OnInit {
   init() {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(90, 500 / 500, 0.1, 1000);
-    this.camera.position.set(-45, 45, -45);
+    this.camera.position.set(-45, 100, -45);
     //this.camera.lookAt( this.scene.position );
 
-		this.camera.updateMatrixWorld(true);
+    this.camera.updateMatrixWorld(true);
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setClearColor("#505050");
     this.renderer.setSize(500, 500);
@@ -95,13 +95,13 @@ export class CanvasComponent implements OnInit {
   light() {
     var light = new THREE.PointLight(0xFFFFFF, 2, 500);
     light.position.set(0, 250, 0);
-    //light.position.set(100, 45, 100);
+    // light.position.set(100, 90, 100);
     // var lightTwo = new THREE.PointLight(0xFF0000, 2, 500);
-    // lightTwo.position.set(-100, 45, 100);
+    // lightTwo.position.set(-100, 90, 100);
     // var lightThree = new THREE.PointLight(0x0000FF, 2, 500);
-    // lightThree.position.set(-100, 45, -100);
+    // lightThree.position.set(-100, 90, -100);
     // var lightFour = new THREE.PointLight(0x00FF00, 2, 500);
-    // lightFour.position.set(100, 45, -100);
+    // lightFour.position.set(100, 90, -100);
     // this.scene.add(lightFour);
     // this.scene.add(lightThree);
     // this.scene.add(lightTwo);
@@ -112,10 +112,10 @@ export class CanvasComponent implements OnInit {
     this.tl = new TimelineMax({ repeat: -1 });
     this.tltwo = new TimelineMax({ repeat: -1 });
     var tll = new TimelineMax({ repeat: -1 });
-    this.tl.to(this.camera.position, 6, { x: -45, y: 45, z: 45 });
-    this.tl.to(this.camera.position, 6, { x: 45, y: 45, z: 45 });
-    this.tl.to(this.camera.position, 6, { x: 45, y: 45, z: -45 });
-    this.tl.to(this.camera.position, 6, { x: -45, y: 45, z: -45 });
+    this.tl.to(this.camera.position, 6, { x: -45, y: 100, z: 45 });
+    this.tl.to(this.camera.position, 6, { x: 45, y: 100, z: 45 });
+    this.tl.to(this.camera.position, 6, { x: 45, y: 100, z: -45 });
+    this.tl.to(this.camera.position, 6, { x: -45, y: 100, z: -45 });
 
 
     this.tltwo.to(this.mesh.position, 3, { x: 0, y: 40, z: 0 });
@@ -135,23 +135,23 @@ export class CanvasComponent implements OnInit {
   }
 
   myClick(event: any) {
-   //console.log("click... ", event);
+    //console.log("click... ", event);
     event.preventDefault();
 
     const targetRect = (event.target as Element).getBoundingClientRect();
     var rect = this.renderer.domElement.getBoundingClientRect();
-    this.mouse.x = ((event.clientX - targetRect.left)/ targetRect.width) * 2 - 1;
-    this.mouse.y = (-(event.clientY - targetRect.top)/targetRect.height) * 2 + 1;
-    
+    this.mouse.x = ((event.clientX - targetRect.left) / targetRect.width) * 2 - 1;
+    this.mouse.y = (-(event.clientY - targetRect.top) / targetRect.height) * 2 + 1;
+
     this.raycaster.setFromCamera(this.mouse, this.camera);
 
     this.render();
   }
 
-  render(){
+  render() {
     var intersects = this.raycaster.intersectObjects(this.scene.children, true);
-    if(intersects.length > 0){
-      this.selected  = intersects[0].object as THREE.Mesh;
+    if (intersects.length > 0) {
+      this.selected = intersects[0].object as THREE.Mesh;
       var color = (Math.random() * 0xffffff);
       var material = new THREE.MeshLambertMaterial({ color: color });
       this.selected.material = material;
