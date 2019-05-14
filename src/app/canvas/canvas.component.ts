@@ -118,10 +118,9 @@ export class CanvasComponent implements OnInit {
     this.tl.to(this.camera.position, 6, { x: -45, y: 100, z: -45 });
 
 
-    this.tltwo.to(this.mesh.position, 3, { x: 0, y: 40, z: 0 });
-    this.tltwo.to(this.mesh.position, 3, { x: 0, y: 10, z: 0 });
-    this.tltwo.to(this.mesh.position, 3, { x: 0, y: 40, z: 0 });
-    this.tltwo.to(this.mesh.position, 3, { x: 0, y: 10, z: 0 });
+    this.tltwo.to(this.mesh.position, 3, { x: 0, y: 100, z: 0 });
+    this.tltwo.to(this.mesh.position, 3, { x: 0, y: 10, z: 0 , ease: Bounce.easeOut});
+
 
     tll.to(this.meshTwo.position, 3, { x: 0, y: 30, z: 50 });
     tll.to(this.meshTwo.position, 3, { x: 0, y: 30, z: 0 });
